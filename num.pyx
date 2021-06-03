@@ -15,10 +15,11 @@ def foo():
     print(A)
     return 0
 
-cdef void bar(double[:] ndx, int n):
+cdef int bar(double[:] ndx, int n) except -1:
     # here &ndx[0] fails with "IndexError: Out of bounds on buffer access (axis 0)" when size==0 (obviously)
     # is it possible to access a valid C pointer of the start of the memoryviewslice ndx instead ?
     c_function(&ndx[0], n)
+    return 0
 
         
     
